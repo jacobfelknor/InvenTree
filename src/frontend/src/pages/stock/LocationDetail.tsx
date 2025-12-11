@@ -6,7 +6,12 @@ import { getDetailUrl } from '@lib/functions/Navigation';
 import type { StockOperationProps } from '@lib/types/Forms';
 import { t } from '@lingui/core/macro';
 import { Group, Skeleton, Stack, Text } from '@mantine/core';
-import { IconInfoCircle, IconPackages, IconSitemap } from '@tabler/icons-react';
+import {
+  IconInfoCircle,
+  IconPackages,
+  IconSitemap,
+  IconTransfer
+} from '@tabler/icons-react';
 import { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../../App';
@@ -188,6 +193,12 @@ export default function Stock() {
             }}
           />
         )
+      },
+      {
+        name: 'transfer-orders',
+        label: t`Transfer Orders`,
+        icon: <IconTransfer />,
+        content: <Text>Hello World</Text>
       },
       {
         name: 'default_parts',
