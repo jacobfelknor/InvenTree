@@ -2160,7 +2160,9 @@ class TransferOrderSerializer(
         model = order.models.TransferOrder
         fields = AbstractOrderSerializer.order_fields([
             'take_from',
+            'take_from_detail',
             'destination',
+            'destination_detail',
             'consume',
             'complete_date',
         ])
@@ -2172,6 +2174,14 @@ class TransferOrderSerializer(
         fields = super().skip_create_fields()
 
         return [*fields, 'duplicate']
+
+    take_from_detail = enable_filter(
+        stock.serializers.LocationSerializer(source='take_from'), default_include=True
+    )
+
+    destination_detail = enable_filter(
+        stock.serializers.LocationSerializer(source='destination'), default_include=True
+    )
 
     # TODO:
     # @staticmethod
