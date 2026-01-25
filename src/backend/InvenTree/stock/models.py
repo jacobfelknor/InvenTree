@@ -2265,6 +2265,10 @@ class StockItem(
 
         deltas = {'stockitem': self.pk}
 
+        transferorder = kwargs.pop('transferorder', None)
+        if transferorder:
+            deltas['transferorder'] = transferorder.pk
+
         # Optional fields which can be supplied in a 'move' call
         for field in StockItem.optional_transfer_fields():
             if field in kwargs:
@@ -2387,6 +2391,10 @@ class StockItem(
         if status and not self.compare_status(status):
             self.set_status(status)
             tracking_info['status'] = status
+
+        transferorder = kwargs.pop('transferorder', None)
+        if transferorder:
+            tracking_info['transferorder'] = transferorder.pk
 
         # Optional fields which can be supplied in a 'move' call
         for field in StockItem.optional_transfer_fields():
