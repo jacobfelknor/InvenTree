@@ -3149,6 +3149,11 @@ class TransferOrder(Order):
 
         return defaults
 
+    @classmethod
+    def barcode_model_type_code(cls):
+        """Return the associated barcode model type code for this model."""
+        return 'TO'
+
     def subscribed_users(self) -> list[User]:
         """Return a list of users subscribed to this TransferOrder.
 
