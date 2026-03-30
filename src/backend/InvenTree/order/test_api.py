@@ -3483,6 +3483,9 @@ class TransferOrderAllocateTest(OrderTest):
         self.assignRole('transfer_order.add')
 
         self.url = reverse('api-transfer-order-allocate', kwargs={'pk': 1})
+        self.url_serialized = reverse(
+            'api-transfer-order-allocate-serials', kwargs={'pk': 1}
+        )
 
         self.order = models.TransferOrder.objects.get(pk=1)
 
@@ -3562,6 +3565,35 @@ class TransferOrderAllocateTest(OrderTest):
         self.assertEqual(self.order.stock_allocations.count(), n_lines)
 
         for line in self.order.lines.all():
+            self.assertEqual(line.allocations.count(), 1)
+
+    def test_allocate_serials(self):
+        """Test that the allocation endpoint acts as expected, when provided with serials."""
+        self.assertEqual(self.order.stock_allocations.count(), 0)
+
+        trackable_lines = self.order.lines.filter(part__trackable=True)
+        for line in trackable_lines:
+            stock_item = (
+                line.part.stock_items
+                .exclude(serial=None)
+                .filter(StockItem.IN_STOCK_FILTER)
+                .first()
+            )
+
+            # Allocate this serialized item to the transfer order
+            data = {
+                'line_item': line.pk,
+                'quantity': 1,
+                'serial_numbers': stock_item.serial,
+            }
+
+            self.post(self.url_serialized, data, expected_code=201)
+
+        # There should have been 1 stock item allocated against each line item
+        n_lines = trackable_lines.count()
+        self.assertEqual(self.order.stock_allocations.count(), n_lines)
+
+        for line in trackable_lines.all():
             self.assertEqual(line.allocations.count(), 1)
 
     def test_allocate_variant(self):
