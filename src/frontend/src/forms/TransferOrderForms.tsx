@@ -86,14 +86,9 @@ export function useTransferOrderLineItemFields({
           active: true,
           virtual: false
         }
-        // onValueChange: (_: any, record?: any) => setPart(record)
       },
       reference: {},
-      quantity: {
-        // onValueChange: (value) => {
-        //   setQuantity(value);
-        // }
-      },
+      quantity: {},
       project_code: {
         description: t`Select project code for this line item`
       },
@@ -153,8 +148,6 @@ function TransferOrderAllocateLineRow({
     };
   }, [sourceLocation, record, props]);
 
-  console.log(sourceLocation);
-
   // Statically defined field for selecting the allocation quantity
   const quantityField: ApiFormFieldType = useMemo(() => {
     return {
@@ -204,12 +197,10 @@ function TransferOrderAllocateLineRow({
 export function useAllocateToTransferOrderForm({
   orderId,
   sourceLocationId,
-  // transferId,
   lineItems,
   onFormSuccess
 }: {
   orderId: number;
-  // transferId?: number;
   sourceLocationId?: number;
   lineItems: any[];
   onFormSuccess: (response: any) => void;
@@ -224,7 +215,6 @@ export function useAllocateToTransferOrderForm({
       source_location: {
         exclude: true,
         required: false,
-        // disabled: true,
         value: sourceLocationId,
         field_type: 'related field',
         api_url: apiUrl(ApiEndpoints.stock_location_list),
@@ -259,20 +249,8 @@ export function useAllocateToTransferOrderForm({
           );
         }
       }
-      // transfer: {
-      //   filters: {
-      //     transferred: false,
-      //     order_detail: true,
-      //     order: orderId
-      //   }
-      // }
     };
-  }, [
-    orderId,
-    // transferId,
-    lineItems,
-    sourceLocation
-  ]);
+  }, [orderId, lineItems, sourceLocation]);
 
   return useCreateApiFormModal({
     title: t`Allocate Stock`,

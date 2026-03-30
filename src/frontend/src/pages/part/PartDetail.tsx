@@ -911,7 +911,10 @@ export default function PartDetail() {
         name: 'transfer_orders',
         label: t`Transfer Orders`,
         icon: <IconTransfer />,
-        hidden: part.virtual || !globalSettings.isSet('TRANSFERORDER_ENABLED'),
+        hidden:
+          part.virtual ||
+          !globalSettings.isSet('TRANSFERORDER_ENABLED') ||
+          !user.hasViewRole(UserRoles.transfer_order),
         content: part.pk ? (
           <TransferOrderTable partId={part.pk} />
         ) : (
