@@ -84,7 +84,7 @@ class GeneralExtraLineList(SerializerContextMixin, DataExportViewMixin):
 
     filter_backends = SEARCH_ORDER_FILTER
 
-    ordering_fields = ['quantity', 'notes', 'reference']
+    ordering_fields = ['quantity', 'notes', 'reference', 'line']
 
     search_fields = ['quantity', 'notes', 'reference', 'description']
 
@@ -719,6 +719,7 @@ class PurchaseOrderLineItemList(
         'order': 'order__reference',
         'status': 'order__status',
         'complete_date': 'order__complete_date',
+        'line': ['line', 'part__SKU'],
     }
 
     ordering_fields = [
@@ -735,6 +736,7 @@ class PurchaseOrderLineItemList(
         'order',
         'status',
         'complete_date',
+        'line',
     ]
 
     search_fields = [
@@ -1069,6 +1071,7 @@ class SalesOrderLineItemList(
         'reference',
         'sale_price',
         'target_date',
+        'line',
     ]
 
     ordering_field_aliases = {
@@ -1076,6 +1079,7 @@ class SalesOrderLineItemList(
         'part': 'part__name',
         'IPN': 'part__IPN',
         'order': 'order__reference',
+        'line': ['line', 'part__name'],
     }
 
     search_fields = ['part__name', 'quantity', 'reference']
@@ -1722,9 +1726,11 @@ class ReturnOrderLineItemList(
         'reference',
         'target_date',
         'received_date',
+        'line',
     ]
 
     ordering_field_aliases = {
+        'line': ['line', 'item__part__name'],
         'part': 'item__part__name',
         'IPN': 'item__part__IPN',
         'stock': ['item__quantity', 'item__serial_int', 'item__serial'],

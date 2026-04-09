@@ -1,13 +1,39 @@
 """InvenTree API version information."""
 
 # InvenTree API version
-INVENTREE_API_VERSION = 468
+INVENTREE_API_VERSION = 476
 """Increment this API version number whenever there is a significant change to the API that any clients need to know about."""
 
 INVENTREE_API_TEXT = """
 
-v468 -> 2026-03-25 : https://github.com/inventree/InvenTree/pull/11281
+v476 -> 2026-03-25 : https://github.com/inventree/InvenTree/pull/11281
     - Add Transfer Order to InvenTree
+
+v475 -> 2026-04-09 : https://github.com/inventree/InvenTree/pull/11702
+    - Adds "updated" and "updated_by" fields to the LabelTemplate and ReportTemplate API endpoints
+
+v474 -> 2026-04-08 : https://github.com/inventree/InvenTree/pull/11693
+    - Adds DataImportMixin to the ManufacturerPartList API endpoint
+
+v473 -> 2026-04-08 : https://github.com/inventree/InvenTree/pull/11692
+    - Adds "line" field to PurchaseOrderLineItem and PurchaseOrderExtraLineItem API endpoints
+    - Adds "line" field to SalesOrderLineItem and SalesOrderExtraLineItem API endpoints
+    - Adds "line" field to ReturnOrderLineItem and ReturnOrderExtraLineItem API endpoints
+
+v472 -> 2026-04-01 : https://github.com/inventree/InvenTree/pull/xxxx
+    - Fixes writable fields on the user detail endpoint
+
+v471 -> 2026-04-07 : https://github.com/inventree/InvenTree/pull/11685
+    - Adds data importer support for the "SalesOrderShipment" model
+
+v470 -> 2026-04-01 : https://github.com/inventree/InvenTree/pull/11659
+    - Renames "is_staff" field to "is_admin" and updates help texts accordingly to highlight current security boundaries
+
+v469 -> 2026-03-31 : https://github.com/inventree/InvenTree/pull/11641
+    - Adds parameter support to the SalesOrderShipment model and API endpoints
+
+v468 -> 2026-03-31 : https://github.com/inventree/InvenTree/pull/11649
+    - Add ordering to contentype related fields - no functional changes
 
 v467 -> 2026-03-20 : https://github.com/inventree/InvenTree/pull/11573
     - Fix definition for the "parent" field on the StockItemSerializer
@@ -321,12 +347,6 @@ v382 -> 2025-08-07 : https://github.com/inventree/InvenTree/pull/10146
     - Removes legacy functionality to auto-create test result templates based on provided test names
 
 v381 -> 2025-08-06 : https://github.com/inventree/InvenTree/pull/10132
-    - Refactor the "return stock item" API endpoint to align with other stock adjustment actions
-
-v380 -> 2025-08-06 : https://github.com/inventree/InvenTree/pull/10135
-    - Fixes "issued_by" filter for the BuildOrder list API endpoint
-
-v380 -> 2025-08-06 : https://github.com/inventree/InvenTree/pull/10132
     - Refactor the "return stock item" API endpoint to align with other stock adjustment actions
 
 v380 -> 2025-08-06 : https://github.com/inventree/InvenTree/pull/10135
